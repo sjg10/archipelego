@@ -18,9 +18,9 @@ GameScreen::GameScreen(int x, int y, int rand_seed)
 	for(int i = 0; i < num_islands; i++)
 	{
 		//TODO: randoms to sensible values.
-		islands[i] = new Island(Position(std::rand(), std::rand()),
+		islands[i] = new Island(Position(std::rand() % height, std::rand() % width),
 							    (Team) (std::rand() % (NUM_PLAYERS + 1)),
-							    std::rand(), std::rand());
+							    std::rand() , std::rand() % MAX_WEIGHT + 1);
 		DEBUG_STATEMENT(std::cout << "New island: " << *islands[i] << std::endl);
 	}
 }

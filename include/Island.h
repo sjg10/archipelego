@@ -9,6 +9,8 @@
 #define ISLAND_H_
 #include "Archipelego.h"
 
+#define MAX_WEIGHT
+
 class Island
 {
 	Position pos;
