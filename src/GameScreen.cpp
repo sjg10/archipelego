@@ -12,21 +12,22 @@ GameScreen::GameScreen(int x, int y, int rand_seed)
 	std::srand(rand_seed);
 	height = x;
 	width = y;
-	running = FALSE;
+	running = false;
 	num_squadrons = 0;
 	num_islands = (std::rand() % MAX_ISLANDS) + 1;
 	for(int i = 0; i < num_islands; i++)
 	{
 		//TODO: randoms to sensible values.
 		islands[i] = new Island(Position(std::rand(), std::rand()),
-							    (Team) std::rand(),	std::rand(),
-								std::rand());
+							    (Team) (std::rand() % (NUM_PLAYERS + 1)),
+							    std::rand(), std::rand());
+		DEBUG_STATEMENT(std::cout << "New island: " << *islands[i] << std::endl);
 	}
 }
 
 bool GameScreen::run()
 {
-	running = TRUE;
+	running = true;
 	Island input_islands[NUM_PLAYERS][MAX_ISLANDS][2];
 	//draw_initial(); TODO:GUI
 	Team winning_team = NEUTRAL;
@@ -43,11 +44,11 @@ bool GameScreen::run()
 		winning_team = check_winning_team();
 		if(winning_team != NEUTRAL)
 		{
-			running = FALSE;
+			running = false;
 		}
 		//redraw() TODO:GUI
 	}
-	return TRUE;
+	return true;
 }
 
 GameScreen::~GameScreen() {

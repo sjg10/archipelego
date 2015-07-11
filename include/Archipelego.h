@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <stdexcept>
 
 #define DEFAULT_HEIGHT 640
 #define DEFAULT_WIDTH  480
@@ -19,8 +20,11 @@
 #define MAX_SQUADRONS  100
 #define NUM_PLAYERS    2
 
-#define TRUE        1
-#define FALSE       (!TRUE)
+#ifdef DEBUG
+#define DEBUG_STATEMENT(statement) (statement)
+#else
+#define DEBUG_STATEMENT(statement)
+#endif
 
 enum Team
 {
@@ -41,9 +45,14 @@ class Position
 		int get_y() {return y;};
 		bool operator==(const Position &other) {return (x == other.x) &&
 													   (y == other.y);};
+		friend std::ostream & operator<<(std::ostream & Str, Position const & v);
 };
 
-
+inline std::ostream & operator<<(std::ostream & Str, Position const & v)
+{
+	Str << "(" << v.x << " " << v.y << ")";
+	return Str;
+}
 
 
 #endif /* ARCHIPELEGO_H_ */

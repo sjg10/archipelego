@@ -27,7 +27,34 @@ public:
 			   weight(0),
 			   team(NEUTRAL),
 			   score(0) {};
+	friend std::ostream & operator<<(std::ostream & Str, Island const & v);
 };
+
+inline std::ostream & operator<<(std::ostream & Str, Island const & v)
+{
+	Str << "( ";
+	Str << "Pos: " << v.pos << " ";
+	Str << "Weight: " << v.weight << " ";
+	Str << "Team: ";
+	switch(v.team)
+	{
+	case RED:
+		Str << "RED";
+		break;
+	case BLUE:
+		Str << "BLUE";
+		break;
+	case NEUTRAL:
+		Str << "NEUTRAL";
+		break;
+	default:
+		std::domain_error("Invalid team name for island.");
+		break;
+	}
+	Str << " ";
+	Str << "Weight: " << v.score << ")";
+	return Str;
+}
 
 
 #endif /* ISLAND_H_ */

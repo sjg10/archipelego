@@ -1,5 +1,6 @@
 CXX      = g++
 CXXFLAGS = -c -Wall
+DEFINES  = 
 #LDFLAGS  =
 MKDIR_P = mkdir -p
 
@@ -9,19 +10,27 @@ OBJ_DIR = obj
 BIN_DIR = bin
 EXECUTABLE = archipelego
 
+INCLUDES = $(notdir $(wildcard $(INCLUDE_DIR)/*.h))
 SOURCES = $(notdir $(wildcard $(SOURCE_DIR)/*.cpp))
-OBJECTS = $(SOURCES:%.cpp=$(OBJ_DIR)/%.o)
+OBJECTS = $(notdir $(SOURCES:%.cpp=$(OBJ_DIR)/%.o))
 
-all: intro dirs $(OBJECTS) $(EXECUTABLE)
+all: intro dirs $(OBJECTS) $(BIN_DIR)/$(EXECUTABLE)
+	@echo "All done."
 
-$(EXECUTABLE): $(OBJECTS)
+debug: DEFINES += DEBUG
+debug: all
+
+#TODO: make depends on headers.
+#TODO: clean and recompile if release changed to debug and vv.
+
+$(BIN_DIR)/$(EXECUTABLE): $(OBJ_DIR)/$(OBJECTS)
 	@echo "Linking..."
 	$(CXX) $(LDFLAGS) $(OBJECTS) -o $(BIN_DIR)/$(EXECUTABLE)
 	@echo "Done.\n"
 
 $(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	@echo "Compiling $< ..."
-	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $< -o $@
+	$(CXX) $(CXXFLAGS) $(addprefix -D,$(DEFINES)) -I$(INCLUDE_DIR) $< -o $@
 	@echo "Done.\n"
 
 dirs: $(OBJ_DIR) $(BIN_DIR)
@@ -37,4 +46,4 @@ intro:
 clean:
 	rm -rf $(EXECUTABLE) $(OBJ_DIR) $(BIN_DIR)
 
-.PHONY: intro dirs all clean
+.PHONY: intro dirs all debug clean
