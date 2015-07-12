@@ -56,8 +56,15 @@ GameScreen::~GameScreen() {
 }
 
 
+void GameScreen::increase_islands()
+{
+	for(int i = 0; i < num_islands; i++)
+		{
+			islands[i]->increment_score();
+		}
+}
+
 //TODO:
-void GameScreen::increase_islands(){return;}
 void GameScreen::check_input(Island input_islands[][2], int player){return;}
 void GameScreen::launch_squadrons(Island input_islands[][2], int player){return;}
 void GameScreen::check_collisions(){return;}

@@ -17,6 +17,7 @@ class Island
 	int weight;
 	Team team;
 	int score;
+	int score_remainder;
 public:
 	void subtract_score(int s);
 	void double_score();
@@ -24,11 +25,15 @@ public:
 		   int initial_weight, int initial_score): pos(pos_sq),
 												   weight(initial_weight),
 												   team(this_team),
-												   score(initial_score) {};
+												   score(initial_score),
+												   score_remainder(0) {};
 	Island() : pos(Position()),
 			   weight(0),
 			   team(NEUTRAL),
-			   score(0) {};
+			   score(0),
+			   score_remainder(0) {};
+	void increment_score();
+	bool score_update_threshold();
 	friend std::ostream & operator<<(std::ostream & Str, Island const & v);
 };
 
