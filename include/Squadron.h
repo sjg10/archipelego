@@ -14,15 +14,16 @@ class Squadron {
 	int size;
 	Position pos;
 	Position trajectory;
+	Team team;
 	Island target;
 public:
 	Squadron(int size_sq, Position pos_sq,
-			Position trajectory_sq, Island target_sq) :
+			Position trajectory_sq, Team team_sq, Island target_sq) :
 				 size(size_sq), pos(pos_sq),
-				 trajectory(trajectory_sq),target(target_sq) {};
+				 trajectory(trajectory_sq), team(team_sq), target(target_sq) {};
 	void update_position();
 	Squadron() : size(0), pos(Position()),
-			 trajectory(Position()), target(Island()) {};
+			 trajectory(Position()), team(NEUTRAL), target(Island()) {};
 };
 
 #endif /* SQUADRON_H_ */
