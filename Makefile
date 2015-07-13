@@ -1,6 +1,6 @@
 # Compiler definitions
 CXX      = g++
-CXXFLAGS = -c -Wall $(addprefix -D,$(DEFINES)) -I$(INCLUDE_DIR) $(MAKEFILE_DEPS_FLAGS)
+CXXFLAGS = -c -Wall $(addprefix -D,$(DEFINES)) -I$(INCLUDE_DIR) $(MAKEFILE_DEPS_FLAGS) -std=c++11
 MAKEFILE_DEPS_FLAGS = -MMD -MP
 DEFINES  = 
 LDFLAGS  =
